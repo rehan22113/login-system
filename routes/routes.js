@@ -20,7 +20,7 @@ res.render("index")
 })
 routes.post("/form",async(req,res)=>{
    try{
-    const name = req.body.name;
+    const name = req.body.Name;
     const classes = req.body.class;
      const age = req.body.age;
 
@@ -40,10 +40,14 @@ routes.post("/form",async(req,res)=>{
 routes.get("/show",async(req,res)=>{
     res.render('login', { messages: req.flash('info') });
 })
-routes.post("/show",async(req,res)=>{
+routes.post("/login",async(req,res)=>{
+    try{
     const name = req.body.name;
     const data = await collection.findOne({name:name})
-    res.render("dashboard",{data})
+    res.render("dashboard",{allData:data.name,allData1:data.class})
+    }catch(err){
+        console.log(err)
+    }
 })
 
 module.exports = routes;
